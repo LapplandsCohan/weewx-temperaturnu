@@ -96,7 +96,7 @@ class TemperaturNu(weewx.restx.StdRESTbase):
         self.archive_thread = TemperaturNuThread(self.archive_queue, **site_dict)
         self.archive_thread.start()
         self.bind(weewx.NEW_ARCHIVE_RECORD, self.new_archive_record)
-        loginf("Data will be uploaded for id=%s" % site_dict['id'])
+        loginf("Data will be uploaded for hash=%s" % site_dict['hash'])
 
     def new_archive_record(self, event):
         self.archive_queue.put(event.record)
@@ -106,14 +106,13 @@ class TemperaturNuThread(weewx.restx.RESTThread):
     _SERVER_URL = 'http://www.temperatur.nu/rapportera.php'
 
     # this data map supports the default database schema
-    # FIXME: design a config option to override this map
     #       temperaturnu_name   weewx_name      format  multiplier
-    _DATA_MAP = {'t':          ('outTemp',      '%.0f', 1.0),  # C
+    _DATA_MAP = {'t':          ('outTemp',      '%.1f', 1.0),  # C
                 }
 
     def __init__(self, queue, hash, manager_dict,
                  server_url=_SERVER_URL, skip_upload=False,
-                 post_interval=600, max_backlog=MAXSIZE, stale=None,
+                 post_interval=40, max_backlog=1, stale=None,
                  log_success=True, log_failure=True,
                  timeout=60, max_tries=3, retry_wait=5):
         super(TemperaturNuThread, self).__init__(queue,
