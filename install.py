@@ -18,6 +18,6 @@ class TemperaturNuInstaller(ExtensionInstaller):
             config={
                 'StdRESTful': {
                     'TemperaturNu': {
-                        'hash': 'TEMPERATURNU_HASH',
+                        'hash': 'TEMPERATURNU_HASH'}}},
             files=[('bin/user', ['bin/user/temperaturnu.py'])]
             )
