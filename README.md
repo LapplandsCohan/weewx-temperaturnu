@@ -15,5 +15,5 @@ Copyright 2021 Konrad Skeri Ekblad
         [[TemperaturNu]]
             hash = TEMPERATURNU_HASH
 ```
-4. Restart weewx 
+4. Restart weewx  
 `sudo systemctl restart weewx`
